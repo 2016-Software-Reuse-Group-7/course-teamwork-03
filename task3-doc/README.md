@@ -4,7 +4,7 @@
 
 命名格式：复用第[x]组\_[模块名称]\_问题与建议.md
 
-## 复用第五组 配置管理模块 问题与建议
+## 复用[第五组 配置管理模块](https://github.com/SummerWish/TahitiConfigManager) 问题与建议
 
 - **文档demo中的问题** 在[ConfigBean](https://github.com/SummerWish/TahitiConfigManager)中
  
