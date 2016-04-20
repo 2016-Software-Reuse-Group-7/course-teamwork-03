@@ -8,7 +8,7 @@ import TeamSeven.client.socket.ClientSocket;
 import TeamSeven.client.socket.ClientSocketImpl;
 import TeamSeven.entity.Account;
 import TeamSeven.entity.Chat;
-import TeamSeven.util.LogTool;
+import TeamSeven.util.PmTool;
 import TeamSeven.util.SerializeTool;
 
 import java.io.BufferedReader;
@@ -16,8 +16,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ClientWithTimer {
 
@@ -48,18 +46,8 @@ public class ClientWithTimer {
         c.sendMessage(accountMsg);
 
 
-         /* 开始定时记录 */
-        LogTool.addClient( userName );
-
-        TimerTask task = new TimerTask() {
-
-            @Override
-            public void run() {
-                LogTool.log( userName );
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule( task, 0, 60000 );
+         /* 使用Pm模块 */
+        PmTool.initClientPm( userName );
 
 
         /* 启动Client后 */
@@ -69,6 +57,7 @@ public class ClientWithTimer {
             String in = sysin.readLine();
             if (in.equals("exit")) {
                 c.close();
+                PmTool.endOutput();
                 System.out.println("[*] 连接中断.");
                 break;
             } else if (in.equals("restart")) {
@@ -79,7 +68,6 @@ public class ClientWithTimer {
                 System.out.println("[*] 客户端已重启, 目标服务器: " + serverUri.getHost() + ", 输入restart重连, 输入exit退出. 其他聊天消息可直接输入.");
             }
             else {
-                LogTool.addSentMessagesNumber( userName, 1 );
                 /*Chat msg = new Chat(in);
                 String encodedMsg = SerializeTool.ObjectToString(msg);
                 c.send(encodedMsg);*/

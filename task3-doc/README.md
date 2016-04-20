@@ -46,3 +46,36 @@ public class ConfigBean {
 * 在使用中，我们也发现引用别人写好的插件，好处是可以大大加快代码的进度，但是对我们的程序自身的结构要求也很高，所以我们对自身代码的程序结构进行了调整，使其更具有重构性，在引入插件时也更为方便。
 
 
+
+## 复用第九组 性能管理模块 问题与建议
+
+##### 选择原因
+
+- 文档清晰明了 
+- 使用方便 
+
+##### 问题与建议
+
+- 输出文件路径和文件名不可设置    
+可能会有文件被覆盖
+
+- 模块设有set方法,缺少get方法  
+例如在此项目中,需要在另外存储数据,再通过set方法更新,比较不方便    
+不过模块内是使用Object类型存储性能指数,实现get方法后使用时还要注意返回的数据类型   
+
+- 文件输出的内容格式比较简陋    
+比如   
+```java
+        log.setParam( "array", new int[]{1, 2, 3});
+        log.setParam( "date", new Date() );
+        log.setParam( "map", new LinkedHashMap<String , Object>(){{
+            put("key1", "value1");
+            put("key2", "value2");
+        }});
+```
+&ensp;&ensp;&ensp;&ensp;会输出   
+> {date=Tue Apr 19 23:48:20 CST 2016, array=[I@6bb6844, map={key1=value1, key2=value2}}
+
+&ensp;&ensp;&ensp;&ensp;我觉得用类型Object存储性能指数很方便,   
+&ensp;&ensp;&ensp;&ensp;另外使用者要用自定义类来表示性能指数的话,类要实现toString方法
+

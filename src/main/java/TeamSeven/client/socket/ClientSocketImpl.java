@@ -2,6 +2,7 @@ package TeamSeven.client.socket;
 
 import TeamSeven.common.IMessageType;
 import TeamSeven.entity.*;
+import TeamSeven.util.PmTool;
 import TeamSeven.util.SerializeTool;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
@@ -100,6 +101,7 @@ public class ClientSocketImpl extends WebSocketClient implements ClientSocket {
     /* 发送对话 */
     public boolean sendChat(String chatContent) throws IOException {
         if (this.isAccessGranted()) {
+            PmTool.clientAddMessage();
             Chat chat = new Chat(chatContent, this.getAccount());
             this.sendMessage(SerializeTool.ObjectToString(chat));
             return true;
@@ -151,10 +153,12 @@ public class ClientSocketImpl extends WebSocketClient implements ClientSocket {
     }
 
     private void handleRespOK(ServerResponseChatOK resp) {
+        PmTool.addReceivedMessage();
         return;
     }
 
     private void handleRespOverFreq(ServerResponseChatOverFrequency resp) {
+        PmTool.addIgnoredMessage();
         System.out.println("您发送消息的频率过快. 请稍后再试.");
     }
 
