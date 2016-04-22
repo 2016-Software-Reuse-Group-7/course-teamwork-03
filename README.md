@@ -25,3 +25,14 @@ git clone https://github.com/2016-Software-Reuse-Group-7/course-teamwork-1.git
 ## 复用其他组构件后的问题与建议
 
 请移步<a href="./task3-doc/">task3-doc</a>文件夹。
+
+
+# 重构项目
+
+我们对整个项目进行了重构，以更好适应复用构件。从第4次任务开始将使用此repo，请移步：
+
+https://github.com/2016-Software-Reuse-Group-7/chat-room
+
+或者直接clone：
+
+git clone https://github.com/2016-Software-Reuse-Group-7/chat-room.git
